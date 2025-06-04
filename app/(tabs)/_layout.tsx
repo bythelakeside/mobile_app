@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { StickyNote, User, Settings } from 'lucide-react-native';
 import { useApp } from '../../context/AppContext';
 
@@ -13,12 +13,15 @@ export default function TabLayout() {
       screenOptions={{
         tabBarStyle: [
           styles.tabBar,
-          isDark ? styles.tabBarDark : styles.tabBarLight
+          isDark ? styles.tabBarDark : styles.tabBarLight,
+          Platform.OS === 'web' && styles.tabBarWeb
         ],
         tabBarActiveTintColor: isDark ? '#0A84FF' : '#007AFF',
         tabBarInactiveTintColor: isDark ? '#98989D' : '#8E8E93',
         tabBarLabelStyle: styles.tabBarLabel,
         headerShown: false,
+        tabBarShowLabel: true,
+        tabBarIconStyle: Platform.OS === 'web' ? styles.tabBarIconWeb : undefined,
       }}
     >
       <Tabs.Screen
@@ -66,8 +69,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#1C1C1E',
     borderTopColor: '#38383A',
   },
+  tabBarWeb: {
+    height: 60,
+    paddingBottom: 10,
+  },
   tabBarLabel: {
     fontSize: 12,
     fontWeight: '500',
+  },
+  tabBarIconWeb: {
+    marginBottom: 0,
   },
 });

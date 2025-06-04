@@ -16,15 +16,39 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <AppProvider>
           <View style={{ flex: 1 }}>
-            <Stack screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="note/[id]" options={{ headerShown: false, presentation: 'card' }} />
-              <Stack.Screen name="create" options={{ headerShown: false, presentation: 'card' }} />
+            <Stack>
+              <Stack.Screen 
+                name="(auth)" 
+                options={{ 
+                  headerShown: false,
+                  animation: Platform.OS === 'web' ? 'none' : 'default'
+                }} 
+              />
+              <Stack.Screen 
+                name="(tabs)" 
+                options={{ 
+                  headerShown: false,
+                  animation: Platform.OS === 'web' ? 'none' : 'default'
+                }} 
+              />
+              <Stack.Screen 
+                name="note/[id]" 
+                options={{ 
+                  headerShown: false,
+                  presentation: Platform.OS === 'web' ? 'card' : 'modal',
+                  animation: Platform.OS === 'web' ? 'none' : 'default'
+                }} 
+              />
+              <Stack.Screen 
+                name="create" 
+                options={{ 
+                  headerShown: false,
+                  presentation: Platform.OS === 'web' ? 'card' : 'modal',
+                  animation: Platform.OS === 'web' ? 'none' : 'default'
+                }} 
+              />
             </Stack>
-            {Platform.OS !== 'web' && (
-              <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-            )}
+            <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
           </View>
         </AppProvider>
       </SafeAreaProvider>
