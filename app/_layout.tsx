@@ -5,7 +5,7 @@ import { useFrameworkReady } from '@/hooks/useFrameworkReady';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AppProvider } from '@/context/AppContext';
-import { useColorScheme, Platform } from 'react-native';
+import { useColorScheme, Platform, View } from 'react-native';
 
 export default function RootLayout() {
   useFrameworkReady();
@@ -15,15 +15,17 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <AppProvider>
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="note/[id]" options={{ headerShown: false, presentation: 'card' }} />
-            <Stack.Screen name="create" options={{ headerShown: false, presentation: 'card' }} />
-          </Stack>
-          {Platform.OS !== 'web' && (
-            <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-          )}
+          <View style={{ flex: 1 }}>
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="note/[id]" options={{ headerShown: false, presentation: 'card' }} />
+              <Stack.Screen name="create" options={{ headerShown: false, presentation: 'card' }} />
+            </Stack>
+            {Platform.OS !== 'web' && (
+              <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+            )}
+          </View>
         </AppProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
