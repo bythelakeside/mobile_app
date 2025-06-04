@@ -5,7 +5,7 @@ import { useFrameworkReady } from '@/hooks/useFrameworkReady';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AppProvider } from '@/context/AppContext';
-import { useColorScheme, Platform, View } from 'react-native';
+import { useColorScheme } from 'react-native';
 
 export default function RootLayout() {
   useFrameworkReady();
@@ -15,41 +15,13 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <AppProvider>
-          <View style={{ flex: 1 }}>
-            <Stack>
-              <Stack.Screen 
-                name="(auth)" 
-                options={{ 
-                  headerShown: false,
-                  animation: Platform.OS === 'web' ? 'none' : 'default'
-                }} 
-              />
-              <Stack.Screen 
-                name="(tabs)" 
-                options={{ 
-                  headerShown: false,
-                  animation: Platform.OS === 'web' ? 'none' : 'default'
-                }} 
-              />
-              <Stack.Screen 
-                name="note/[id]" 
-                options={{ 
-                  headerShown: false,
-                  presentation: Platform.OS === 'web' ? 'card' : 'modal',
-                  animation: Platform.OS === 'web' ? 'none' : 'default'
-                }} 
-              />
-              <Stack.Screen 
-                name="create" 
-                options={{ 
-                  headerShown: false,
-                  presentation: Platform.OS === 'web' ? 'card' : 'modal',
-                  animation: Platform.OS === 'web' ? 'none' : 'default'
-                }} 
-              />
-            </Stack>
-            <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-          </View>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="note/[id]" options={{ headerShown: false, presentation: 'card' }} />
+            <Stack.Screen name="create" options={{ headerShown: false, presentation: 'card' }} />
+          </Stack>
+          <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
         </AppProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
